@@ -1,8 +1,9 @@
 .slider-switch {
   position: relative;
   display: inline-block;
-  width: 5rem;
+  width: 7rem;
   height: 2.125rem;
+  color: red;
 }
 
 .slider-switch input {
@@ -65,17 +66,26 @@ input:checked + .slider-slider:before {
 .slider-slider.slider-round:before {
   content: attr(data-off);
   border-radius: 1rem;
+  position: absolute;
+  left: 2rem;
+  top: 0.125rem;
 }
 
 .slider-slider.slider-round:after {
   content: attr(data-on);
   border-radius: 1rem;
+  position: absolute;
+  top: 0.438rem;
+  left: 0;
 }
 
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::after {
-  content: attr(data-off);
+  content: "Test"; /* attr(data-off); */
+  position: absolute;
+  top: 0.125rem;
+  left: 0;
 }
 
 .slider-switch
