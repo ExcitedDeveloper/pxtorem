@@ -67,12 +67,12 @@ input:checked + .slider-slider:before {
   content: attr(data-off);
   border-radius: 1rem;
   position: absolute;
-  left: 2rem;
+  left: 0;
   top: 0.125rem;
 }
 
 .slider-slider.slider-round:after {
-  content: attr(data-on);
+  content: "Test2"; /* attr(data-on); */
   border-radius: 1rem;
   position: absolute;
   top: 0.438rem;
@@ -91,5 +91,6 @@ input:checked + .slider-slider:before {
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::before {
-  content: attr(data-on);
+  content: "Test3"; /* attr(data-on); */
+  left: 2rem;
 }
