@@ -64,7 +64,7 @@ input:checked + .slider-slider:before {
 }
 
 .slider-slider.slider-round:before {
-  content: attr(data-off);
+  content: "Test4"; /* attr(data-off); */
   border-radius: 1rem;
   position: absolute;
   left: 0;
