@@ -1,10 +1,10 @@
-import "./Slider.css"
+import "./ThemeSlider.css"
 
 export type SliderProps = {
   onClick: () => void
 }
 
-const Slider = ({ onClick }: SliderProps) => {
+const ThemeSlider = ({ onClick }: SliderProps) => {
   return (
     <label className='slider-switch'>
       <input type='checkbox' onClick={onClick} />
@@ -17,4 +17,4 @@ const Slider = ({ onClick }: SliderProps) => {
   )
 }
 
-export default Slider
+export default ThemeSlider

@@ -1,5 +1,7 @@
 .slider-switch {
-  position: relative;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   display: inline-block;
   width: 7rem;
   height: 2.125rem;
