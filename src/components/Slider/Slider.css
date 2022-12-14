@@ -76,7 +76,7 @@ input:checked + .slider-slider:before {
   border-radius: 1rem;
   position: absolute;
   top: 0.438rem;
-  left: 0;
+  right: 0;
 }
 
 .slider-switch
