@@ -11,6 +11,8 @@ export const THEMES: Record<ThemeType, Theme> = {
     "--slider-button": Color.DARK_GRAY,
     "--primary-text": Color.BLACK,
     "--secondary-text": Color.BLACK,
+    "--light-text": Color.BLACK,
+    "--dark-text": Color.BLACK,
   },
   dark: {
     "--primary": Color.VIOLET,
@@ -21,5 +23,7 @@ export const THEMES: Record<ThemeType, Theme> = {
     "--slider-button": Color.DARK_GRAY,
     "--primary-text": Color.WHITE,
     "--secondary-text": Color.LIGHT_GRAY,
+    "--light-text": Color.BLACK,
+    "--dark-text": Color.WHITE,
   },
 }

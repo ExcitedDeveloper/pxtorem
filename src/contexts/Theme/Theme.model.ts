@@ -14,4 +14,6 @@ export interface Theme {
   "--slider-button": Color
   "--primary-text": Color
   "--secondary-text": Color
+  "--light-text": Color
+  "--dark-text": Color
 }
