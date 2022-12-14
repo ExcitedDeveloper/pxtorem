@@ -10,3 +10,23 @@
   align-items: center;
   font-size: 1.8rem;
 }
+
+.app-title {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.app-converter-controls {
+  height: 3.125rem;
+}
+
+.app-font-size-setter {
+  height: 3.125rem;
+}
+
+.app-conversion-tables {
+  flex: 2;
+}

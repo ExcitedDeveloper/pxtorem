@@ -16,19 +16,12 @@ function App() {
           )
         }
       />
-      <div
-        style={{
-          flex: "2",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-        }}
-      >
+      <div className='app-title'>
         <div>PX to REM converter</div>
       </div>
-      <div style={{ height: "50px" }}>convert controls</div>
-      <div style={{ height: "50px" }}>font-size</div>
-      <div style={{ flex: "2" }}>conversion tables</div>
+      <div className='app-converter-controls'>convert controls</div>
+      <div className='app-font-size-setter'>font-size</div>
+      <div className='app-conversion-tables'>conversion tables</div>
     </div>
   )
 }
