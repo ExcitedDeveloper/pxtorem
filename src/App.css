@@ -4,4 +4,9 @@
   color: var(--primary-text);
   padding: 1rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
 }

@@ -6,6 +6,7 @@
   width: 7rem;
   height: 2.125rem;
   color: var(--secondary-text);
+  font-size: 1rem;
 }
 
 .slider-switch input {

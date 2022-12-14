@@ -16,7 +16,19 @@ function App() {
           )
         }
       />
-      <h1>PX to REM converter</h1>
+      <div
+        style={{
+          flex: "2",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+        }}
+      >
+        <div>PX to REM converter</div>
+      </div>
+      <div style={{ height: "50px" }}>convert controls</div>
+      <div style={{ height: "50px" }}>font-size</div>
+      <div style={{ flex: "2" }}>conversion tables</div>
     </div>
   )
 }
