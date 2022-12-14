@@ -48,7 +48,7 @@ input:checked + .slider-slider:before {
 }
 
 .slider-slider.slider-round:before {
-  content: attr(data-off);
+  content: "Test3"; /* attr(data-off); */
   border-radius: 1rem;
   position: absolute;
   left: 0.25rem;
@@ -57,7 +57,7 @@ input:checked + .slider-slider:before {
 }
 
 .slider-slider.slider-round:after {
-  content: attr(data-on);
+  content: "Test1"; /* attr(data-on); */
   border-radius: 1rem;
   position: absolute;
   top: 0.25rem;
@@ -67,7 +67,7 @@ input:checked + .slider-slider:before {
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::after {
-  content: attr(data-off);
+  content: "Test4"; /* attr(data-off); */
   position: absolute;
   top: 0.25rem;
   left: 0.5rem;
@@ -76,8 +76,9 @@ input:checked + .slider-slider:before {
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::before {
-  content: attr(data-on);
+  content: "Test2"; /* attr(data-on); */
   left: 2rem;
   top: 0.25rem;
   text-align: center;
+  background-color: var(--slider-button);
 }

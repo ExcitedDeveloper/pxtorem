@@ -11,6 +11,7 @@ export interface Theme {
   "--background": Color
   "--white": Color
   "--slider-background": Color
+  "--slider-button": Color
   "--primary-text": Color
   "--secondary-text": Color
 }
