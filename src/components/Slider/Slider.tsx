@@ -8,7 +8,11 @@ const Slider = ({ onClick }: SliderProps) => {
   return (
     <label className='slider-switch'>
       <input type='checkbox' onClick={onClick} />
-      <span className='slider-slider slider-round'></span>
+      <span
+        className='slider-slider slider-round'
+        data-on='Dark'
+        data-off='Light'
+      ></span>
     </label>
   )
 }

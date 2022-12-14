@@ -1,7 +1,7 @@
 .slider-switch {
   position: relative;
   display: inline-block;
-  width: 3.75rem;
+  width: 5rem;
   height: 2.125rem;
 }
 
@@ -27,7 +27,7 @@
   position: absolute;
   content: "";
   height: 1.625rem;
-  width: 1.625rem;
+  width: 3rem;
   left: 0.25rem;
   bottom: 0.25rem;
   /* dot */
@@ -41,13 +41,19 @@
   background-color: var(--slider-background);
 } */
 
+/* .slider-slider:checked:before {
+  content: "Light";
+}
+
+.slider-slider:not(:checked)::before {
+  content: "Dark";
+} */
+
 input:focus + .slider-slider {
   box-shadow: 0 0 0.063rem var(--secondary);
 }
 
 input:checked + .slider-slider:before {
-  -webkit-transform: translateX(1.625rem);
-  -ms-transform: translateX(1.625rem);
   transform: translateX(1.625rem);
 }
 
@@ -57,5 +63,23 @@ input:checked + .slider-slider:before {
 }
 
 .slider-slider.slider-round:before {
-  border-radius: 50%;
+  content: attr(data-off);
+  border-radius: 1rem;
+}
+
+.slider-slider.slider-round:after {
+  content: attr(data-on);
+  border-radius: 1rem;
+}
+
+.slider-switch
+  input[type="checkbox"]:checked
+  + .slider-slider.slider-round::after {
+  content: attr(data-off);
+}
+
+.slider-switch
+  input[type="checkbox"]:checked
+  + .slider-slider.slider-round::before {
+  content: attr(data-on);
 }
