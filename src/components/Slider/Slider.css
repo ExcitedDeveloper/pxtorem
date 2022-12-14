@@ -64,33 +64,36 @@ input:checked + .slider-slider:before {
 }
 
 .slider-slider.slider-round:before {
-  content: "Test4"; /* attr(data-off); */
+  content: attr(data-off);
   border-radius: 1rem;
   position: absolute;
-  left: 0;
-  top: 0.125rem;
+  left: 0.25rem;
+  top: 0.25rem;
+  text-align: center;
 }
 
 .slider-slider.slider-round:after {
-  content: "Test2"; /* attr(data-on); */
+  content: attr(data-on);
   border-radius: 1rem;
   position: absolute;
-  top: 0.438rem;
-  right: 0;
+  top: 0.25rem;
+  right: 0.5rem;
 }
 
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::after {
-  content: "Test"; /* attr(data-off); */
+  content: attr(data-off);
   position: absolute;
-  top: 0.125rem;
-  left: 0;
+  top: 0.25rem;
+  left: 0.5rem;
 }
 
 .slider-switch
   input[type="checkbox"]:checked
   + .slider-slider.slider-round::before {
-  content: "Test3"; /* attr(data-on); */
+  content: attr(data-on);
   left: 2rem;
+  top: 0.25rem;
+  text-align: center;
 }
