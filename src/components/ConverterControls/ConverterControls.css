@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+.converter-controls label {
+  text-align: center;
+}
+
 .converter-controls-numeric {
   position: relative;
   margin: 0;
