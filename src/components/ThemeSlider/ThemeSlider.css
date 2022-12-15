@@ -86,3 +86,12 @@ input:checked + .slider-slider:before {
   background-color: var(--slider-button);
   color: var(--dark-text);
 }
+
+@media screen and (max-width: 895px) {
+  .slider-switch {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+  }
+}

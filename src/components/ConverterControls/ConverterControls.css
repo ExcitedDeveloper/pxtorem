@@ -46,3 +46,9 @@
   border: none;
   cursor: pointer;
 }
+
+@media screen and (max-width: 895px) {
+  .converter-controls {
+    flex-direction: column;
+  }
+}

@@ -17,13 +17,13 @@ function App() {
   }
 
   return (
-    <div className='app' style={{ ...(theme as React.CSSProperties) }}>
+    <main className='app' style={{ ...(theme as React.CSSProperties) }}>
       <ThemeSlider onClick={handleThemeClick} />
       <ConverterTitle />
       <ConverterControls />
       <FontSizeSetter />
       <ConversionTables />
-    </div>
+    </main>
   )
 }
 

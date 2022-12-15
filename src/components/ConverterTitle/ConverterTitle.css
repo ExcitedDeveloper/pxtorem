@@ -5,3 +5,9 @@
   justify-content: flex-end;
   margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 895px) {
+  .converter-title {
+    margin-top: 10rem;
+  }
+}
