@@ -16,4 +16,5 @@ export interface Theme {
   "--secondary-text": Color
   "--light-text": Color
   "--dark-text": Color
+  "--numeric-border": Color
 }
