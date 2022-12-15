@@ -1,24 +1,16 @@
 import { ThemeType } from "./contexts/Theme/Theme.model"
 
-export const PXTOREM_LOCAL_STORAGE = "pxtorem"
+export const CURRENT_THEME_LOCAL_STORAGE = "currentTheme"
 
-export interface AppStorage {
-  currentTheme?: ThemeType
-}
-
-export const getInfoFromLocalStorage = (): AppStorage => {
-  let info = {}
-
+export const getCurrentThemeFromLocalStorage = (): ThemeType => {
   try {
-    const loc = localStorage.getItem(PXTOREM_LOCAL_STORAGE)
+    const currentTheme = localStorage.getItem(
+      CURRENT_THEME_LOCAL_STORAGE
+    ) as ThemeType
 
-    if (loc) {
-      info = JSON.parse(loc) || {}
-    }
+    return currentTheme || ThemeType.Light
   } catch (error) {
-    console.error(`getInfoFromLocalStorage`, error)
-    info = {}
+    console.error("getCurrentThemeFromLocalStorage", error)
+    return ThemeType.Light
   }
-
-  return info
 }

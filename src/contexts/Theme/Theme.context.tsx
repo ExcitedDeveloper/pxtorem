@@ -10,7 +10,10 @@ import React, {
 } from "react"
 import { THEMES } from "./Theme.config"
 import { ThemeType, Theme } from "./Theme.model"
-import { getInfoFromLocalStorage, PXTOREM_LOCAL_STORAGE } from "../../util"
+import {
+  getCurrentThemeFromLocalStorage,
+  CURRENT_THEME_LOCAL_STORAGE,
+} from "../../util"
 
 interface ThemeContextProps {
   themeType: ThemeType
@@ -33,10 +36,10 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   // Reload the last theme from local storage
   // when app first runs
   useEffect(() => {
-    const curr = getInfoFromLocalStorage()
+    const theme = getCurrentThemeFromLocalStorage()
 
-    if (curr.currentTheme) {
-      setCurrentTheme(curr.currentTheme)
+    if (theme) {
+      setCurrentTheme(theme)
       return
     }
 
@@ -48,11 +51,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
     try {
       if (!currentTheme) return
 
-      const curr = getInfoFromLocalStorage()
-
-      const updated = { ...curr, currentTheme }
-
-      localStorage.setItem(PXTOREM_LOCAL_STORAGE, JSON.stringify(updated))
+      localStorage.setItem(CURRENT_THEME_LOCAL_STORAGE, currentTheme)
     } catch (error) {
       console.error(`Theme.context.tsx`, error)
     }

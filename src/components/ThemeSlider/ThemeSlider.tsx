@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import "./ThemeSlider.css"
 import { ThemeType } from "../../contexts/Theme/Theme.model"
-import { getInfoFromLocalStorage } from "../../util"
+import { getCurrentThemeFromLocalStorage } from "../../util"
 
 export type SliderProps = {
   onClick: () => void
@@ -11,9 +11,9 @@ const ThemeSlider = ({ onClick }: SliderProps) => {
   const themeRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    const curr = getInfoFromLocalStorage()
+    const theme = getCurrentThemeFromLocalStorage()
 
-    if (curr.currentTheme === ThemeType.Dark && themeRef.current) {
+    if (theme === ThemeType.Dark && themeRef.current) {
       themeRef.current.checked = true
     }
   }, [])
