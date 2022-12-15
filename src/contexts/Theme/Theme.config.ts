@@ -17,7 +17,7 @@ export const THEMES: Record<ThemeType, Theme> = {
     "--caret-color": Color.BLACK,
   },
   dark: {
-    "--primary": Color.VIOLET,
+    "--primary": Color.BLACK,
     "--secondary": Color.DARK_GRAY,
     "--background": Color.BLACK,
     "--white": Color.WHITE,

@@ -39,7 +39,9 @@ const ConverterControls = () => {
           <input type='text' className='converter-controls-input' />
         </div>
       </label>
-      <button onClick={toggleDirection}>⇄</button>
+      <div className='converter-controls-toggle'>
+        <button onClick={toggleDirection}>⇄</button>
+      </div>
       <label htmlFor=''>
         {rightLabel}
         <div className='converter-controls-numeric'>
