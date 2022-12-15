@@ -1,3 +1,4 @@
 .converter-controls {
-  height: 3.125rem;
+  display: flex;
+  flex-direction: row;
 }
