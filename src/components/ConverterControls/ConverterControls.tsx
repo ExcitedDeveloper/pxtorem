@@ -8,10 +8,22 @@ import {
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
 
+enum WhichControl {
+  Left,
+  Right,
+}
+
 const ConverterControls = () => {
-  const { direction, setDirection } = useConverter()
+  const { direction, setDirection, pixels, setPixels, rootFontSize } =
+    useConverter()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
+  const [leftControlText, setLeftControlText] = useState<string>()
+  const [rightControlText, setRightControlText] = useState<string>()
+
+  const pixelsToRem = (): string => {
+    return (pixels / rootFontSize).toString()
+  }
 
   useEffect(() => {
     if (direction === ConversionDirection.PxToRem) {
@@ -22,6 +34,16 @@ const ConverterControls = () => {
       setRightLabel(PIXELS_LABEL)
     }
   }, [direction])
+
+  useEffect(() => {
+    if (direction === ConversionDirection.PxToRem) {
+      setLeftControlText(pixels.toString())
+      setRightControlText(pixelsToRem())
+    } else {
+      setLeftControlText(pixelsToRem())
+      setRightControlText(pixels.toString())
+    }
+  }, [pixels, direction])
 
   const toggleDirection = () => {
     setDirection(
@@ -36,7 +58,11 @@ const ConverterControls = () => {
       <label htmlFor=''>
         {leftLabel}
         <div className='converter-controls-numeric'>
-          <input type='text' className='converter-controls-input' />
+          <input
+            type='text'
+            className='converter-controls-input'
+            value={leftControlText}
+          />
         </div>
       </label>
       <div className='converter-controls-toggle'>
@@ -45,7 +71,11 @@ const ConverterControls = () => {
       <label htmlFor=''>
         {rightLabel}
         <div className='converter-controls-numeric'>
-          <input type='text' className='converter-controls-input' />
+          <input
+            type='text'
+            className='converter-controls-input'
+            value={rightControlText}
+          />
         </div>
       </label>
     </div>

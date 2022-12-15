@@ -27,6 +27,7 @@
   height: 100%;
   text-align: center;
   caret-color: var(--caret-color);
+  color: var(--primary-text);
 }
 
 .converter-controls-input:focus {
