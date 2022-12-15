@@ -17,4 +17,5 @@ export interface Theme {
   "--light-text": Color
   "--dark-text": Color
   "--numeric-border": Color
+  "--caret-color": Color
 }
