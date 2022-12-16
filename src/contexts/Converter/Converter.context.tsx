@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react"
+import React, { useState, Dispatch, SetStateAction, useMemo } from 'react'
 
 export enum ConversionDirection {
   PxToRem,
@@ -36,17 +36,20 @@ export const ConverterProvider: React.FC<ConverterProviderProps> = ({
   const [pixels, setPixels] = useState<number | undefined>(DFLT_PIXELS)
   const [rootFontSize, setRootFontSize] = useState<number>(DFLT_ROOT_FONT_SIZE)
 
+  const value = useMemo(
+    () => ({
+      direction,
+      setDirection,
+      pixels,
+      setPixels,
+      rootFontSize,
+      setRootFontSize,
+    }),
+    [direction, pixels, rootFontSize]
+  )
+
   return (
-    <ConverterContext.Provider
-      value={{
-        direction,
-        setDirection,
-        pixels,
-        setPixels,
-        rootFontSize,
-        setRootFontSize,
-      }}
-    >
+    <ConverterContext.Provider value={value}>
       {children}
     </ConverterContext.Provider>
   )

@@ -1,10 +1,10 @@
-import { ChangeEvent, RefObject, useState, useEffect } from "react"
-import { WhichSide } from "../../util"
+import { ChangeEvent, RefObject, useState, useEffect } from 'react'
+import { WhichSide } from '../../util'
 import {
   ConversionDirection,
   useConverter,
-} from "../../contexts/Converter/Converter.context"
-import "./ConversionInput.css"
+} from '../../contexts/Converter/Converter.context'
+import './ConversionInput.css'
 
 export type ConversionInputProps = {
   inputRef: RefObject<HTMLInputElement>
@@ -12,18 +12,18 @@ export type ConversionInputProps = {
 }
 
 const formatNumber = (num: number | undefined) => {
-  return num ? num.toFixed(3).replace(/\.?0+$/, "") : ""
+  return num ? num.toFixed(3).replace(/\.?0+$/, '') : ''
 }
 
 const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
-  const [controlText, setControlText] = useState<string>("")
+  const [controlText, setControlText] = useState<string>('')
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
-  const pixelsToRem = (): string => {
-    return pixels ? formatNumber(pixels / rootFontSize) : ""
-  }
-
   useEffect(() => {
+    const pixelsToRem = (): string => {
+      return pixels ? formatNumber(pixels / rootFontSize) : ''
+    }
+
     if (
       (side === WhichSide.Left && direction === ConversionDirection.PxToRem) ||
       (side === WhichSide.Right && direction === ConversionDirection.RemToPx)
@@ -32,7 +32,7 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
     } else {
       setControlText(pixelsToRem())
     }
-  }, [pixels, direction])
+  }, [pixels, direction, side, rootFontSize])
 
   const remToPixels = (rem: number): number => {
     return rem * rootFontSize
@@ -44,7 +44,7 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
   ) => {
     try {
       if (!e.target.value) {
-        setControlText("")
+        setControlText('')
         setPixels(undefined)
         return
       }
@@ -53,11 +53,9 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
       // set the text color
       // First remove the text color from the other number
       if (ctrl === WhichSide.Left) {
-        inputRef.current &&
-          inputRef.current.classList.remove("conv-converted-number")
+        inputRef.current?.classList.remove('conv-converted-number')
       } else {
-        inputRef.current &&
-          inputRef.current.classList.add("conv-converted-number")
+        inputRef.current?.classList.add('conv-converted-number')
       }
 
       if (
@@ -70,15 +68,16 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
         setPixels(remToPixels(Number(e.target.value)))
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`handleOnChange`, error)
     }
   }
 
   return (
     <input
-      type='number'
+      type="number"
       ref={inputRef}
-      className='conv-input'
+      className="conv-input"
       defaultValue={controlText}
       onChange={(e) => handleOnChange(e, side)}
     />

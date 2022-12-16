@@ -1,6 +1,6 @@
-import { ThemeType } from "./contexts/Theme/Theme.model"
+import { ThemeType } from './contexts/Theme/Theme.model'
 
-export const CURRENT_THEME_LOCAL_STORAGE = "currentTheme"
+export const CURRENT_THEME_LOCAL_STORAGE = 'currentTheme'
 
 export const getCurrentThemeFromLocalStorage = (): ThemeType => {
   try {
@@ -10,7 +10,8 @@ export const getCurrentThemeFromLocalStorage = (): ThemeType => {
 
     return currentTheme || ThemeType.Light
   } catch (error) {
-    console.error("getCurrentThemeFromLocalStorage", error)
+    // eslint-disable-next-line no-console
+    console.error('getCurrentThemeFromLocalStorage', error)
     return ThemeType.Light
   }
 }

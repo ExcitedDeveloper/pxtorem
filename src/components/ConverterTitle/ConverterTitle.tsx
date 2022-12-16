@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react"
-import "./ConverterTitle.css"
+import { useEffect, useState } from 'react'
+import './ConverterTitle.css'
 import {
   ConversionDirection,
   useConverter,
-} from "../../contexts/Converter/Converter.context"
+} from '../../contexts/Converter/Converter.context'
 
-const PxToRemText = "PX to REM converter"
-const RemToPxText = "REM to PX converter"
+const PxToRemText = 'PX to REM converter'
+const RemToPxText = 'REM to PX converter'
 
 const ConverterTitle = () => {
   const { direction } = useConverter()
@@ -21,7 +21,7 @@ const ConverterTitle = () => {
   }, [direction])
 
   return (
-    <div className='converter-title'>
+    <div className="converter-title">
       <div>
         <div>{title}</div>
       </div>

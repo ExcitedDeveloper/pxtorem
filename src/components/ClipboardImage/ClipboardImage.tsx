@@ -1,12 +1,13 @@
-import { RefObject, useRef, useEffect } from "react"
+/* eslint-disable prettier/prettier */
+import { RefObject, useRef, useEffect } from 'react'
 import {
   ConversionDirection,
   useConverter,
-} from "../../contexts/Converter/Converter.context"
-import { WhichSide } from "../../util"
-import { useTheme } from "../../contexts/Theme/Theme.context"
-import { ThemeType } from "../../contexts/Theme/Theme.model"
-import "./ClipboardImage.css"
+} from '../../contexts/Converter/Converter.context'
+import { WhichSide } from '../../util'
+import { useTheme } from '../../contexts/Theme/Theme.context'
+import { ThemeType } from '../../contexts/Theme/Theme.model'
+import './ClipboardImage.css'
 
 export type ClipboardImageProps = {
   side: WhichSide
@@ -24,11 +25,11 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
   // icon look correct for the current theme.
   useEffect(() => {
     if (themeType === ThemeType.Light) {
-      imgRef.current?.classList.remove("ci-invert-100")
-      imgRef.current?.classList.add("ci-invert-0")
+      imgRef.current?.classList.remove('ci-invert-100')
+      imgRef.current?.classList.add('ci-invert-0')
     } else {
-      imgRef.current?.classList.remove("ci-invert-0")
-      imgRef.current?.classList.add("ci-invert-100")
+      imgRef.current?.classList.remove('ci-invert-0')
+      imgRef.current?.classList.add('ci-invert-100')
     }
   }, [themeType])
 
@@ -50,13 +51,13 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
   }
 
   return (
-    <img
-      src='copy_clipboard.png'
-      ref={imgRef}
-      alt='Copy to clipboard'
-      className='ci-clipboard'
+    <button
+      type="button"
+      className="ci-clipboard"
       onClick={() => navigator.clipboard.writeText(getClipboardText())}
-    />
+    >
+      <img src="copy_clipboard.png" ref={imgRef} alt="Copy to clipboard" />
+    </button>
   )
 }
 

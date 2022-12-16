@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react"
-import "./ThemeSlider.css"
-import { ThemeType } from "../../contexts/Theme/Theme.model"
-import { getCurrentThemeFromLocalStorage } from "../../util"
+import { useEffect, useRef } from 'react'
+import './ThemeSlider.css'
+import { ThemeType } from '../../contexts/Theme/Theme.model'
+import { getCurrentThemeFromLocalStorage } from '../../util'
 
 export type SliderProps = {
   onClick: () => void
@@ -19,13 +19,18 @@ const ThemeSlider = ({ onClick }: SliderProps) => {
   }, [])
 
   return (
-    <label className='slider-switch'>
-      <input ref={themeRef} type='checkbox' onClick={onClick} />
+    <label htmlFor="themeSlider" className="slider-switch">
+      <input
+        id="themeSlider"
+        ref={themeRef}
+        type="checkbox"
+        onClick={onClick}
+      />
       <span
-        className='slider-slider slider-round'
-        data-on='Dark'
-        data-off='Light'
-      ></span>
+        className="slider-slider slider-round"
+        data-on="Dark"
+        data-off="Light"
+      />
     </label>
   )
 }

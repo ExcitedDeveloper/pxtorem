@@ -1,17 +1,18 @@
-import { ChangeEvent, useEffect, useState, useRef } from "react"
-import "./ConverterControls.css"
+import { useEffect, useState, useRef } from 'react'
+import './ConverterControls.css'
 import {
   ConversionDirection,
   useConverter,
-} from "../../contexts/Converter/Converter.context"
-import { WhichSide } from "../../util"
-import ClipboardImage from "../ClipboardImage/ClipboardImage"
-import ConversionInput from "../ConversionInput/ConversionInput"
+} from '../../contexts/Converter/Converter.context'
+import { WhichSide } from '../../util'
+import ClipboardImage from '../ClipboardImage/ClipboardImage'
+import ConversionInput from '../ConversionInput/ConversionInput'
 
-const PIXELS_LABEL = "Pixels"
-const REM_LABEL = "Rem"
+const PIXELS_LABEL = 'Pixels'
+const REM_LABEL = 'Rem'
 
 const ConverterControls = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { direction, setDirection, rootFontSize } = useConverter()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
@@ -37,31 +38,27 @@ const ConverterControls = () => {
   }
 
   return (
-    <div className='converter-controls'>
-      <label htmlFor=''>
+    <div className="converter-controls">
+      <label htmlFor="leftConverterControl">
         {leftLabel}
-        <div className='cc-numeric'>
-          <div className='cc-input-group'>
+        <div id="leftConverterControl" className="cc-numeric">
+          <div className="cc-input-group">
             <ConversionInput inputRef={leftRef} side={WhichSide.Left} />
-            <ClipboardImage
-              side={WhichSide.Left}
-              inputRef={leftRef}
-            ></ClipboardImage>
+            <ClipboardImage side={WhichSide.Left} inputRef={leftRef} />
           </div>
         </div>
       </label>
-      <div className='cc-toggle'>
-        <button onClick={toggleDirection}>⇄</button>
+      <div className="cc-toggle">
+        <button type="button" onClick={toggleDirection}>
+          ⇄
+        </button>
       </div>
-      <label htmlFor=''>
+      <label htmlFor="rightConverterControl">
         {rightLabel}
-        <div className='cc-numeric'>
-          <div className='cc-input-group'>
+        <div id="rightConverterControl" className="cc-numeric">
+          <div className="cc-input-group">
             <ConversionInput inputRef={rightRef} side={WhichSide.Right} />
-            <ClipboardImage
-              side={WhichSide.Right}
-              inputRef={rightRef}
-            ></ClipboardImage>
+            <ClipboardImage side={WhichSide.Right} inputRef={rightRef} />
           </div>
         </div>
       </label>

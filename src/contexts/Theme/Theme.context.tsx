@@ -7,13 +7,14 @@ import React, {
   useEffect,
   FC,
   ReactNode,
-} from "react"
-import { THEMES } from "./Theme.config"
-import { ThemeType, Theme } from "./Theme.model"
+  useMemo,
+} from 'react'
+import { THEMES } from './Theme.config'
+import { ThemeType, Theme } from './Theme.model'
 import {
   getCurrentThemeFromLocalStorage,
   CURRENT_THEME_LOCAL_STORAGE,
-} from "../../util"
+} from '../../util'
 
 interface ThemeContextProps {
   themeType: ThemeType
@@ -53,21 +54,21 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
       localStorage.setItem(CURRENT_THEME_LOCAL_STORAGE, currentTheme)
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Theme.context.tsx`, error)
     }
   }, [currentTheme])
 
-  return (
-    <ThemeContext.Provider
-      value={{
-        themeType: currentTheme || ThemeType.Light,
-        theme: THEMES[currentTheme || ThemeType.Light],
-        setCurrentTheme,
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
+  const value = useMemo(
+    () => ({
+      themeType: currentTheme || ThemeType.Light,
+      theme: THEMES[currentTheme || ThemeType.Light],
+      setCurrentTheme,
+    }),
+    [currentTheme]
   )
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
 export const useTheme = () => React.useContext(ThemeContext)
