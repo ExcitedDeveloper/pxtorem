@@ -107,14 +107,23 @@ const ConverterControls = () => {
     <div className='converter-controls'>
       <label htmlFor=''>
         {leftLabel}
+
         <div className='cc-numeric'>
-          <input
-            type='number'
-            ref={leftRef}
-            className='cc-input cc-icon-rtl'
-            defaultValue={leftControlText}
-            onChange={(e) => handleOnChange(e, WhichSide.Left)}
-          />
+          <div className='cc-input-group'>
+            <input
+              type='number'
+              ref={leftRef}
+              className='cc-input cc-icon-rtl'
+              defaultValue={leftControlText}
+              onChange={(e) => handleOnChange(e, WhichSide.Left)}
+            />
+            <img
+              src='copy_clipboard.png'
+              alt='Copy to clipboard'
+              className='cc-clipboard'
+              onClick={() => console.log(`*************** click left`)}
+            />
+          </div>
         </div>
       </label>
       <div className='cc-toggle'>
@@ -123,13 +132,21 @@ const ConverterControls = () => {
       <label htmlFor=''>
         {rightLabel}
         <div className='cc-numeric'>
-          <input
-            type='number'
-            ref={rightRef}
-            className='cc-input cc-icon-rtl'
-            defaultValue={rightControlText}
-            onChange={(e) => handleOnChange(e, WhichSide.Right)}
-          />
+          <div className='cc-input-group'>
+            <input
+              type='number'
+              ref={rightRef}
+              className='cc-input cc-icon-rtl'
+              defaultValue={rightControlText}
+              onChange={(e) => handleOnChange(e, WhichSide.Right)}
+            />
+            <img
+              src='copy_clipboard.png'
+              alt='Copy to clipboard'
+              className='cc-clipboard'
+              onClick={() => console.log(`*************** click right`)}
+            />
+          </div>
         </div>
       </label>
     </div>

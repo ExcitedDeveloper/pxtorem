@@ -20,7 +20,7 @@
   background: none;
   box-sizing: border-box;
   display: block;
-  padding: 0.25rem 1.25rem;
+  padding: 0.25rem 2.5rem 0.25rem 1.25rem;
   font-size: 2.4rem;
   border: none;
   width: 100%;
@@ -64,11 +64,22 @@ input[type="number"] {
   color: var(--converted-number);
 }
 
-.cc-icon-rtl {
-  padding-right: 1.563rem;
-  background: url("copy_clipboard.png") no-repeat right;
-  background-size: 1.25rem;
-  /* filter: invert(100%); */
+.cc-clipboard {
+  display: inline-block;
+  cursor: pointer;
+  filter: invert(100%);
+}
+
+.cc-input-group {
+  position: relative;
+}
+
+.cc-clipboard {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
 }
 
 @media screen and (max-width: 895px) {
