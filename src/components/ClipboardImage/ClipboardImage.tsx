@@ -24,11 +24,12 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
   // icon look correct for the current theme.
   useEffect(() => {
     if (themeType == ThemeType.Light) {
-      imgRef.current && imgRef.current.classList.remove("cc-invert-100")
-      imgRef.current && imgRef.current.classList.add("cc-invert-0")
+      imgRef.current && imgRef.current.classList.remove("ci-invert-100")
+      imgRef.current && imgRef.current.classList.add("ci-invert-0")
     } else {
-      imgRef.current && imgRef.current.classList.remove("cc-invert-0")
-      imgRef.current && imgRef.current.classList.add("cc-invert-100")
+      console.log(`************** Dark invert`)
+      imgRef.current && imgRef.current.classList.remove("ci-invert-0")
+      imgRef.current && imgRef.current.classList.add("ci-invert-100")
     }
   }, [themeType])
 
