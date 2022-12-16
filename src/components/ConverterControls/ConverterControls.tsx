@@ -6,6 +6,7 @@ import {
 } from "../../contexts/Converter/Converter.context"
 import { WhichSide } from "../../util"
 import ClipboardImage from "../ClipboardImage/ClipboardImage"
+import ConversionInput from "../ConversionInput/ConversionInput"
 
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
@@ -106,13 +107,7 @@ const ConverterControls = () => {
         {leftLabel}
         <div className='cc-numeric'>
           <div className='cc-input-group'>
-            <input
-              type='number'
-              ref={leftRef}
-              className='cc-input cc-icon-rtl'
-              defaultValue={leftControlText}
-              onChange={(e) => handleOnChange(e, WhichSide.Left)}
-            />
+            <ConversionInput inputRef={leftRef} side={WhichSide.Left} />
             <ClipboardImage
               direction={direction}
               side={WhichSide.Left}
