@@ -4,16 +4,11 @@ import {
   ConversionDirection,
   useConverter,
 } from "../../contexts/Converter/Converter.context"
-import { useTheme } from "../../contexts/Theme/Theme.context"
-import { ThemeType } from "../../contexts/Theme/Theme.model"
+import { WhichSide } from "../../util"
+import ClipboardImage from "../ClipboardImage/ClipboardImage"
 
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
-
-enum WhichSide {
-  Left,
-  Right,
-}
 
 const formatNumber = (num: number | undefined) => {
   return num ? num.toFixed(3).replace(/\.?0+$/, "") : ""
@@ -22,15 +17,12 @@ const formatNumber = (num: number | undefined) => {
 const ConverterControls = () => {
   const { direction, setDirection, pixels, setPixels, rootFontSize } =
     useConverter()
-  const { themeType } = useTheme()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
   const [leftControlText, setLeftControlText] = useState<string>("")
   const [rightControlText, setRightControlText] = useState<string>("")
   const leftRef = useRef<HTMLInputElement>(null)
   const rightRef = useRef<HTMLInputElement>(null)
-  const leftClipboardRef = useRef<HTMLImageElement>(null)
-  const rightClipboardRef = useRef<HTMLImageElement>(null)
 
   const pixelsToRem = (): string => {
     return pixels ? formatNumber(pixels / rootFontSize) : ""
@@ -59,32 +51,6 @@ const ConverterControls = () => {
       setRightControlText(formatNumber(pixels))
     }
   }, [pixels, direction])
-
-  // Have one clipboard icon which doesn't display
-  // correctly for both light and dark modes.
-  // Use classes that do a filter: invert to make
-  // icon look correct for the current theme.
-  useEffect(() => {
-    if (themeType == ThemeType.Light) {
-      leftClipboardRef.current &&
-        leftClipboardRef.current.classList.remove("cc-invert-100")
-      leftClipboardRef.current &&
-        leftClipboardRef.current.classList.add("cc-invert-0")
-      rightClipboardRef.current &&
-        rightClipboardRef.current.classList.remove("cc-invert-100")
-      rightClipboardRef.current &&
-        rightClipboardRef.current.classList.add("cc-invert-0")
-    } else {
-      leftClipboardRef.current &&
-        leftClipboardRef.current.classList.remove("cc-invert-0")
-      leftClipboardRef.current &&
-        leftClipboardRef.current.classList.add("cc-invert-100")
-      rightClipboardRef.current &&
-        rightClipboardRef.current.classList.remove("cc-invert-0")
-      rightClipboardRef.current &&
-        rightClipboardRef.current.classList.add("cc-invert-100")
-    }
-  }, [themeType])
 
   const toggleDirection = () => {
     setDirection(
@@ -134,29 +100,10 @@ const ConverterControls = () => {
     }
   }
 
-  const getClipboardText = (side: WhichSide, val?: string) => {
-    if (!val) return ``
-
-    if (side === WhichSide.Left) {
-      if (direction === ConversionDirection.PxToRem) {
-        return `${val}px`
-      } else {
-        return `${val}rem`
-      }
-    } else {
-      if (direction === ConversionDirection.PxToRem) {
-        return `${val}rem`
-      } else {
-        return `${val}px`
-      }
-    }
-  }
-
   return (
     <div className='converter-controls'>
       <label htmlFor=''>
         {leftLabel}
-
         <div className='cc-numeric'>
           <div className='cc-input-group'>
             <input
@@ -166,17 +113,11 @@ const ConverterControls = () => {
               defaultValue={leftControlText}
               onChange={(e) => handleOnChange(e, WhichSide.Left)}
             />
-            <img
-              src='copy_clipboard.png'
-              ref={leftClipboardRef}
-              alt='Copy to clipboard'
-              className='cc-clipboard'
-              onClick={() =>
-                navigator.clipboard.writeText(
-                  getClipboardText(WhichSide.Left, leftRef.current?.value)
-                )
-              }
-            />
+            <ClipboardImage
+              direction={direction}
+              side={WhichSide.Left}
+              inputRef={leftRef}
+            ></ClipboardImage>
           </div>
         </div>
       </label>
@@ -194,17 +135,11 @@ const ConverterControls = () => {
               defaultValue={rightControlText}
               onChange={(e) => handleOnChange(e, WhichSide.Right)}
             />
-            <img
-              src='copy_clipboard.png'
-              ref={rightClipboardRef}
-              alt='Copy to clipboard'
-              className='cc-clipboard'
-              onClick={() =>
-                navigator.clipboard.writeText(
-                  getClipboardText(WhichSide.Right, rightRef.current?.value)
-                )
-              }
-            />
+            <ClipboardImage
+              direction={direction}
+              side={WhichSide.Right}
+              inputRef={rightRef}
+            ></ClipboardImage>
           </div>
         </div>
       </label>

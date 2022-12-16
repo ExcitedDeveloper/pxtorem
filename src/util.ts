@@ -14,3 +14,8 @@ export const getCurrentThemeFromLocalStorage = (): ThemeType => {
     return ThemeType.Light
   }
 }
+
+export enum WhichSide {
+  Left,
+  Right,
+}
