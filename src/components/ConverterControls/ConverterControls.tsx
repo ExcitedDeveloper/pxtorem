@@ -4,6 +4,8 @@ import {
   ConversionDirection,
   useConverter,
 } from "../../contexts/Converter/Converter.context"
+import { useTheme } from "../../contexts/Theme/Theme.context"
+import { ThemeType } from "../../contexts/Theme/Theme.model"
 
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
@@ -20,12 +22,15 @@ const formatNumber = (num: number | undefined) => {
 const ConverterControls = () => {
   const { direction, setDirection, pixels, setPixels, rootFontSize } =
     useConverter()
+  const { themeType } = useTheme()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
   const [leftControlText, setLeftControlText] = useState<string>("")
   const [rightControlText, setRightControlText] = useState<string>("")
   const leftRef = useRef<HTMLInputElement>(null)
   const rightRef = useRef<HTMLInputElement>(null)
+  const leftClipboardRef = useRef<HTMLImageElement>(null)
+  const rightClipboardRef = useRef<HTMLImageElement>(null)
 
   const pixelsToRem = (): string => {
     return pixels ? formatNumber(pixels / rootFontSize) : ""
@@ -54,6 +59,32 @@ const ConverterControls = () => {
       setRightControlText(formatNumber(pixels))
     }
   }, [pixels, direction])
+
+  // Have one clipboard icon which doesn't display
+  // correctly for both light and dark modes.
+  // Use classes that do a filter: invert to make
+  // icon look correct for the current theme.
+  useEffect(() => {
+    if (themeType == ThemeType.Light) {
+      leftClipboardRef.current &&
+        leftClipboardRef.current.classList.remove("cc-invert-100")
+      leftClipboardRef.current &&
+        leftClipboardRef.current.classList.add("cc-invert-0")
+      rightClipboardRef.current &&
+        rightClipboardRef.current.classList.remove("cc-invert-100")
+      rightClipboardRef.current &&
+        rightClipboardRef.current.classList.add("cc-invert-0")
+    } else {
+      leftClipboardRef.current &&
+        leftClipboardRef.current.classList.remove("cc-invert-0")
+      leftClipboardRef.current &&
+        leftClipboardRef.current.classList.add("cc-invert-100")
+      rightClipboardRef.current &&
+        rightClipboardRef.current.classList.remove("cc-invert-0")
+      rightClipboardRef.current &&
+        rightClipboardRef.current.classList.add("cc-invert-100")
+    }
+  }, [themeType])
 
   const toggleDirection = () => {
     setDirection(
@@ -119,6 +150,7 @@ const ConverterControls = () => {
             />
             <img
               src='copy_clipboard.png'
+              ref={leftClipboardRef}
               alt='Copy to clipboard'
               className='cc-clipboard'
               onClick={() => console.log(`*************** click left`)}
@@ -142,6 +174,7 @@ const ConverterControls = () => {
             />
             <img
               src='copy_clipboard.png'
+              ref={rightClipboardRef}
               alt='Copy to clipboard'
               className='cc-clipboard'
               onClick={() => console.log(`*************** click right`)}
