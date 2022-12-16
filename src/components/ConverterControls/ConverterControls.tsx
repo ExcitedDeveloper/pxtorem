@@ -11,27 +11,12 @@ import ConversionInput from "../ConversionInput/ConversionInput"
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
 
-const formatNumber = (num: number | undefined) => {
-  return num ? num.toFixed(3).replace(/\.?0+$/, "") : ""
-}
-
 const ConverterControls = () => {
-  const { direction, setDirection, pixels, setPixels, rootFontSize } =
-    useConverter()
+  const { direction, setDirection, rootFontSize } = useConverter()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
-  const [leftControlText, setLeftControlText] = useState<string>("")
-  const [rightControlText, setRightControlText] = useState<string>("")
   const leftRef = useRef<HTMLInputElement>(null)
   const rightRef = useRef<HTMLInputElement>(null)
-
-  const pixelsToRem = (): string => {
-    return pixels ? formatNumber(pixels / rootFontSize) : ""
-  }
-
-  const remToPixels = (rem: number): number => {
-    return rem * rootFontSize
-  }
 
   useEffect(() => {
     if (direction === ConversionDirection.PxToRem) {
@@ -43,62 +28,12 @@ const ConverterControls = () => {
     }
   }, [direction])
 
-  useEffect(() => {
-    if (direction === ConversionDirection.PxToRem) {
-      setLeftControlText(formatNumber(pixels))
-      setRightControlText(pixelsToRem())
-    } else {
-      setLeftControlText(pixelsToRem())
-      setRightControlText(formatNumber(pixels))
-    }
-  }, [pixels, direction])
-
   const toggleDirection = () => {
     setDirection(
       direction === ConversionDirection.PxToRem
         ? ConversionDirection.RemToPx
         : ConversionDirection.PxToRem
     )
-  }
-
-  const handleOnChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    ctrl: WhichSide
-  ) => {
-    try {
-      if (!e.target.value) {
-        setLeftControlText("")
-        setRightControlText("")
-        setPixels(undefined)
-        return
-      }
-
-      // For the number that is getting converted,
-      // set the text color
-      // First remove the text color from the other number
-      if (ctrl === WhichSide.Left) {
-        leftRef.current &&
-          leftRef.current.classList.remove("cc-converted-number")
-        rightRef.current &&
-          rightRef.current.classList.add("cc-converted-number")
-      } else {
-        rightRef.current &&
-          rightRef.current.classList.remove("cc-converted-number")
-        leftRef.current && leftRef.current.classList.add("cc-converted-number")
-      }
-
-      if (
-        (ctrl === WhichSide.Left &&
-          direction === ConversionDirection.PxToRem) ||
-        (ctrl === WhichSide.Right && direction === ConversionDirection.RemToPx)
-      ) {
-        setPixels(Number(e.target.value))
-      } else {
-        setPixels(remToPixels(Number(e.target.value)))
-      }
-    } catch (error) {
-      console.error(`handleOnChange`, error)
-    }
   }
 
   return (
@@ -109,7 +44,6 @@ const ConverterControls = () => {
           <div className='cc-input-group'>
             <ConversionInput inputRef={leftRef} side={WhichSide.Left} />
             <ClipboardImage
-              direction={direction}
               side={WhichSide.Left}
               inputRef={leftRef}
             ></ClipboardImage>
@@ -123,15 +57,8 @@ const ConverterControls = () => {
         {rightLabel}
         <div className='cc-numeric'>
           <div className='cc-input-group'>
-            <input
-              type='number'
-              ref={rightRef}
-              className='cc-input cc-icon-rtl'
-              defaultValue={rightControlText}
-              onChange={(e) => handleOnChange(e, WhichSide.Right)}
-            />
+            <ConversionInput inputRef={rightRef} side={WhichSide.Right} />
             <ClipboardImage
-              direction={direction}
               side={WhichSide.Right}
               inputRef={rightRef}
             ></ClipboardImage>

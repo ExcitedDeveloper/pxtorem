@@ -1,17 +1,20 @@
 import { RefObject, useRef, useEffect } from "react"
-import { ConversionDirection } from "../../contexts/Converter/Converter.context"
+import {
+  ConversionDirection,
+  useConverter,
+} from "../../contexts/Converter/Converter.context"
 import { WhichSide } from "../../util"
 import { useTheme } from "../../contexts/Theme/Theme.context"
 import { ThemeType } from "../../contexts/Theme/Theme.model"
 import "./ClipboardImage.css"
 
 export type ClipboardImageProps = {
-  direction: ConversionDirection
   side: WhichSide
   inputRef: RefObject<HTMLInputElement>
 }
 
-const ClipboardImage = ({ direction, side, inputRef }: ClipboardImageProps) => {
+const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
+  const { direction } = useConverter()
   const imgRef = useRef<HTMLImageElement>(null)
   const { themeType } = useTheme()
 

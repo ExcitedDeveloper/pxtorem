@@ -19,3 +19,15 @@
 .conv-converted-number {
   color: var(--converted-number);
 }
+
+/* Hide the HTML5 spin-button for inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the HTML5 spin-button for inputs */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
