@@ -23,13 +23,12 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
   // Use classes that do a filter: invert to make
   // icon look correct for the current theme.
   useEffect(() => {
-    if (themeType == ThemeType.Light) {
-      imgRef.current && imgRef.current.classList.remove("ci-invert-100")
-      imgRef.current && imgRef.current.classList.add("ci-invert-0")
+    if (themeType === ThemeType.Light) {
+      imgRef.current?.classList.remove("ci-invert-100")
+      imgRef.current?.classList.add("ci-invert-0")
     } else {
-      console.log(`************** Dark invert`)
-      imgRef.current && imgRef.current.classList.remove("ci-invert-0")
-      imgRef.current && imgRef.current.classList.add("ci-invert-100")
+      imgRef.current?.classList.remove("ci-invert-0")
+      imgRef.current?.classList.add("ci-invert-100")
     }
   }, [themeType])
 
@@ -41,16 +40,13 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
     if (side === WhichSide.Left) {
       if (direction === ConversionDirection.PxToRem) {
         return `${val}px`
-      } else {
-        return `${val}rem`
       }
-    } else {
-      if (direction === ConversionDirection.PxToRem) {
-        return `${val}rem`
-      } else {
-        return `${val}px`
-      }
+      return `${val}rem`
     }
+    if (direction === ConversionDirection.PxToRem) {
+      return `${val}rem`
+    }
+    return `${val}px`
   }
 
   return (
