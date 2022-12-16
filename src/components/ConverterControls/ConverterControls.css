@@ -7,7 +7,7 @@
   text-align: center;
 }
 
-.converter-controls-numeric {
+.cc-numeric {
   position: relative;
   margin: 0;
   margin-top: 0.238rem;
@@ -16,7 +16,7 @@
   height: 3.675rem;
 }
 
-.converter-controls-input {
+.cc-input {
   background: none;
   box-sizing: border-box;
   display: block;
@@ -30,17 +30,29 @@
   color: var(--primary-text);
 }
 
-.converter-controls-input:focus {
+.cc-input:focus {
   outline: none;
 }
 
-.converter-controls-toggle {
+/* Hide the HTML5 spin-button for inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the HTML5 spin-button for inputs */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.cc-toggle {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-.converter-controls-toggle button {
+.cc-toggle button {
   background-color: var(--background);
   color: var(--primary-text);
   height: 4rem;
@@ -48,8 +60,15 @@
   cursor: pointer;
 }
 
-.converter-controls-converted-number {
+.cc-converted-number {
   color: var(--converted-number);
+}
+
+.cc-icon-rtl {
+  padding-right: 1.563rem;
+  background: url("copy_clipboard.png") no-repeat right;
+  background-size: 1.25rem;
+  /* filter: invert(100%); */
 }
 
 @media screen and (max-width: 895px) {

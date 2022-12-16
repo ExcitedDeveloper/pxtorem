@@ -80,18 +80,13 @@ const ConverterControls = () => {
       // First remove the text color from the other number
       if (ctrl === WhichSide.Left) {
         leftRef.current &&
-          leftRef.current.classList.remove(
-            "converter-controls-converted-number"
-          )
+          leftRef.current.classList.remove("cc-converted-number")
         rightRef.current &&
-          rightRef.current.classList.add("converter-controls-converted-number")
+          rightRef.current.classList.add("cc-converted-number")
       } else {
         rightRef.current &&
-          rightRef.current.classList.remove(
-            "converter-controls-converted-number"
-          )
-        leftRef.current &&
-          leftRef.current.classList.add("converter-controls-converted-number")
+          rightRef.current.classList.remove("cc-converted-number")
+        leftRef.current && leftRef.current.classList.add("cc-converted-number")
       }
 
       if (
@@ -112,26 +107,26 @@ const ConverterControls = () => {
     <div className='converter-controls'>
       <label htmlFor=''>
         {leftLabel}
-        <div className='converter-controls-numeric'>
+        <div className='cc-numeric'>
           <input
             type='number'
             ref={leftRef}
-            className='converter-controls-input'
+            className='cc-input cc-icon-rtl'
             defaultValue={leftControlText}
             onChange={(e) => handleOnChange(e, WhichSide.Left)}
           />
         </div>
       </label>
-      <div className='converter-controls-toggle'>
+      <div className='cc-toggle'>
         <button onClick={toggleDirection}>⇄</button>
       </div>
       <label htmlFor=''>
         {rightLabel}
-        <div className='converter-controls-numeric'>
+        <div className='cc-numeric'>
           <input
             type='number'
             ref={rightRef}
-            className='converter-controls-input'
+            className='cc-input cc-icon-rtl'
             defaultValue={rightControlText}
             onChange={(e) => handleOnChange(e, WhichSide.Right)}
           />
