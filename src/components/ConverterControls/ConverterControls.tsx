@@ -134,6 +134,24 @@ const ConverterControls = () => {
     }
   }
 
+  const getClipboardText = (side: WhichSide, val?: string) => {
+    if (!val) return ``
+
+    if (side === WhichSide.Left) {
+      if (direction === ConversionDirection.PxToRem) {
+        return `${val}px`
+      } else {
+        return `${val}rem`
+      }
+    } else {
+      if (direction === ConversionDirection.PxToRem) {
+        return `${val}rem`
+      } else {
+        return `${val}px`
+      }
+    }
+  }
+
   return (
     <div className='converter-controls'>
       <label htmlFor=''>
@@ -153,7 +171,11 @@ const ConverterControls = () => {
               ref={leftClipboardRef}
               alt='Copy to clipboard'
               className='cc-clipboard'
-              onClick={() => console.log(`*************** click left`)}
+              onClick={() =>
+                navigator.clipboard.writeText(
+                  getClipboardText(WhichSide.Left, leftRef.current?.value)
+                )
+              }
             />
           </div>
         </div>
@@ -177,7 +199,11 @@ const ConverterControls = () => {
               ref={rightClipboardRef}
               alt='Copy to clipboard'
               className='cc-clipboard'
-              onClick={() => console.log(`*************** click right`)}
+              onClick={() =>
+                navigator.clipboard.writeText(
+                  getClipboardText(WhichSide.Right, rightRef.current?.value)
+                )
+              }
             />
           </div>
         </div>
