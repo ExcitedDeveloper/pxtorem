@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import "./ConverterControls.css"
 import {
   ConversionDirection,
@@ -8,7 +8,7 @@ import {
 const PIXELS_LABEL = "Pixels"
 const REM_LABEL = "Rem"
 
-enum WhichControl {
+enum WhichSide {
   Left,
   Right,
 }
@@ -18,11 +18,15 @@ const ConverterControls = () => {
     useConverter()
   const [leftLabel, setLeftLabel] = useState(PIXELS_LABEL)
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
-  const [leftControlText, setLeftControlText] = useState<string>()
-  const [rightControlText, setRightControlText] = useState<string>()
+  const [leftControlText, setLeftControlText] = useState<string>("")
+  const [rightControlText, setRightControlText] = useState<string>("")
 
   const pixelsToRem = (): string => {
-    return (pixels / rootFontSize).toString()
+    return (pixels / rootFontSize).toFixed(3).replace(/\.?0+$/, "")
+  }
+
+  const remToPixels = (rem: number): number => {
+    return rem * rootFontSize
   }
 
   useEffect(() => {
@@ -37,11 +41,11 @@ const ConverterControls = () => {
 
   useEffect(() => {
     if (direction === ConversionDirection.PxToRem) {
-      setLeftControlText(pixels.toString())
+      setLeftControlText(pixels.toFixed(3).replace(/\.?0+$/, ""))
       setRightControlText(pixelsToRem())
     } else {
       setLeftControlText(pixelsToRem())
-      setRightControlText(pixels.toString())
+      setRightControlText(pixels.toFixed(3).replace(/\.?0+$/, ""))
     }
   }, [pixels, direction])
 
@@ -53,15 +57,41 @@ const ConverterControls = () => {
     )
   }
 
+  const handleOnChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    ctrl: WhichSide
+  ) => {
+    try {
+      if (!e.target.value) {
+        setLeftControlText("")
+        setRightControlText("")
+        return
+      }
+
+      if (
+        (ctrl === WhichSide.Left &&
+          direction === ConversionDirection.PxToRem) ||
+        (ctrl === WhichSide.Right && direction === ConversionDirection.RemToPx)
+      ) {
+        setPixels(Number(e.target.value))
+      } else {
+        setPixels(remToPixels(Number(e.target.value)))
+      }
+    } catch (error) {
+      console.error(`handleOnChange`, error)
+    }
+  }
+
   return (
     <div className='converter-controls'>
       <label htmlFor=''>
         {leftLabel}
         <div className='converter-controls-numeric'>
           <input
-            type='text'
+            type='number'
             className='converter-controls-input'
-            value={leftControlText}
+            defaultValue={leftControlText}
+            onChange={(e) => handleOnChange(e, WhichSide.Left)}
           />
         </div>
       </label>
@@ -72,9 +102,10 @@ const ConverterControls = () => {
         {rightLabel}
         <div className='converter-controls-numeric'>
           <input
-            type='text'
+            type='number'
             className='converter-controls-input'
-            value={rightControlText}
+            defaultValue={rightControlText}
+            onChange={(e) => handleOnChange(e, WhichSide.Right)}
           />
         </div>
       </label>
