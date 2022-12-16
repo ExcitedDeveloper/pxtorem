@@ -13,6 +13,10 @@ enum WhichSide {
   Right,
 }
 
+const formatNumber = (num: number | undefined) => {
+  return num ? num.toFixed(3).replace(/\.?0+$/, "") : ""
+}
+
 const ConverterControls = () => {
   const { direction, setDirection, pixels, setPixels, rootFontSize } =
     useConverter()
@@ -22,7 +26,7 @@ const ConverterControls = () => {
   const [rightControlText, setRightControlText] = useState<string>("")
 
   const pixelsToRem = (): string => {
-    return (pixels / rootFontSize).toFixed(3).replace(/\.?0+$/, "")
+    return pixels ? formatNumber(pixels / rootFontSize) : ""
   }
 
   const remToPixels = (rem: number): number => {
@@ -41,11 +45,11 @@ const ConverterControls = () => {
 
   useEffect(() => {
     if (direction === ConversionDirection.PxToRem) {
-      setLeftControlText(pixels.toFixed(3).replace(/\.?0+$/, ""))
+      setLeftControlText(formatNumber(pixels))
       setRightControlText(pixelsToRem())
     } else {
       setLeftControlText(pixelsToRem())
-      setRightControlText(pixels.toFixed(3).replace(/\.?0+$/, ""))
+      setRightControlText(formatNumber(pixels))
     }
   }, [pixels, direction])
 
@@ -65,6 +69,7 @@ const ConverterControls = () => {
       if (!e.target.value) {
         setLeftControlText("")
         setRightControlText("")
+        setPixels(undefined)
         return
       }
 

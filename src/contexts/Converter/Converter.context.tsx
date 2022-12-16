@@ -8,8 +8,8 @@ export enum ConversionDirection {
 interface ConverterContextProps {
   direction: ConversionDirection
   setDirection: Dispatch<SetStateAction<ConversionDirection>>
-  pixels: number
-  setPixels: Dispatch<SetStateAction<number>>
+  pixels: number | undefined
+  setPixels: Dispatch<SetStateAction<number | undefined>>
   rootFontSize: number
   setRootFontSize: Dispatch<SetStateAction<number>>
 }
@@ -33,7 +33,7 @@ export const ConverterProvider: React.FC<ConverterProviderProps> = ({
   const [direction, setDirection] = useState<ConversionDirection>(
     ConversionDirection.PxToRem
   )
-  const [pixels, setPixels] = useState<number>(DFLT_PIXELS)
+  const [pixels, setPixels] = useState<number | undefined>(DFLT_PIXELS)
   const [rootFontSize, setRootFontSize] = useState<number>(DFLT_ROOT_FONT_SIZE)
 
   return (
