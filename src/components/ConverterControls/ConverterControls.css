@@ -48,6 +48,10 @@
   cursor: pointer;
 }
 
+.converter-controls-converted-number {
+  color: var(--converted-number);
+}
+
 @media screen and (max-width: 895px) {
   .converter-controls {
     flex-direction: column;

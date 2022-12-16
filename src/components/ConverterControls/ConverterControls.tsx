@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useRef } from "react"
 import "./ConverterControls.css"
 import {
   ConversionDirection,
@@ -24,6 +24,8 @@ const ConverterControls = () => {
   const [rightLabel, setRightLabel] = useState(REM_LABEL)
   const [leftControlText, setLeftControlText] = useState<string>("")
   const [rightControlText, setRightControlText] = useState<string>("")
+  const leftRef = useRef<HTMLInputElement>(null)
+  const rightRef = useRef<HTMLInputElement>(null)
 
   const pixelsToRem = (): string => {
     return pixels ? formatNumber(pixels / rootFontSize) : ""
@@ -73,6 +75,25 @@ const ConverterControls = () => {
         return
       }
 
+      // For the number that is getting converted,
+      // set the text color
+      // First remove the text color from the other number
+      if (ctrl === WhichSide.Left) {
+        leftRef.current &&
+          leftRef.current.classList.remove(
+            "converter-controls-converted-number"
+          )
+        rightRef.current &&
+          rightRef.current.classList.add("converter-controls-converted-number")
+      } else {
+        rightRef.current &&
+          rightRef.current.classList.remove(
+            "converter-controls-converted-number"
+          )
+        leftRef.current &&
+          leftRef.current.classList.add("converter-controls-converted-number")
+      }
+
       if (
         (ctrl === WhichSide.Left &&
           direction === ConversionDirection.PxToRem) ||
@@ -94,6 +115,7 @@ const ConverterControls = () => {
         <div className='converter-controls-numeric'>
           <input
             type='number'
+            ref={leftRef}
             className='converter-controls-input'
             defaultValue={leftControlText}
             onChange={(e) => handleOnChange(e, WhichSide.Left)}
@@ -108,6 +130,7 @@ const ConverterControls = () => {
         <div className='converter-controls-numeric'>
           <input
             type='number'
+            ref={rightRef}
             className='converter-controls-input'
             defaultValue={rightControlText}
             onChange={(e) => handleOnChange(e, WhichSide.Right)}
