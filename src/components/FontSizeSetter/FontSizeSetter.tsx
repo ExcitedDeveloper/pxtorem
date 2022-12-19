@@ -1,27 +1,10 @@
-import { useRef, useEffect } from 'react'
-import { useTheme } from '../../contexts/Theme/Theme.context'
-import { ThemeType } from '../../contexts/Theme/Theme.model'
+import { useRef } from 'react'
+import InvertableImage from '../InvertableImage/InvertableImage'
 import '../../App.css'
 import './FontSizeSetter.css'
 
 const FontSizeSetter = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const imgRef = useRef<HTMLImageElement>(null)
-  const { themeType } = useTheme()
-
-  // Have one clipboard icon which doesn't display
-  // correctly for both light and dark modes.
-  // Use classes that do a filter: invert to make
-  // icon look correct for the current theme.
-  useEffect(() => {
-    if (themeType === ThemeType.Light) {
-      imgRef.current?.classList.remove('invert-100')
-      imgRef.current?.classList.add('invert-0')
-    } else {
-      imgRef.current?.classList.remove('invert-0')
-      imgRef.current?.classList.add('invert-100')
-    }
-  }, [themeType])
 
   return (
     <div className="fs-setter">
@@ -43,10 +26,9 @@ const FontSizeSetter = () => {
             step="0.001"
             defaultValue={16}
           />
-          <img
-            className="fs-pencil"
+          <InvertableImage
             src="pencil.png"
-            ref={imgRef}
+            className="inline-block"
             alt="Copy to clipboard"
           />
         </span>{' '}
