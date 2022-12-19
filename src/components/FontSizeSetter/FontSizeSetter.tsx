@@ -1,11 +1,22 @@
-import { useRef } from 'react'
+import { FormEvent, useRef, useEffect } from 'react'
 import InvertableImage from '../InvertableImage/InvertableImage'
 import { useConverter } from '../../contexts/Converter/Converter.context'
+import { getRootFontSizeFromLocalStorage, ROOT_FONT_SIZE } from '../../util'
 import './FontSizeSetter.css'
 
 const FontSizeSetter = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { rootFontSize, setRootFontSize } = useConverter()
+
+  const handleRootFontSizeChange = (e: FormEvent<HTMLInputElement>) => {
+    setRootFontSize(Number(e.currentTarget.value))
+    localStorage.setItem(ROOT_FONT_SIZE, e.currentTarget.value)
+  }
+
+  useEffect(() => {
+    const storageRootFontSize = getRootFontSizeFromLocalStorage()
+    setRootFontSize(Number(storageRootFontSize))
+  }, [setRootFontSize])
 
   return (
     <div className="fs-setter">
@@ -28,7 +39,7 @@ const FontSizeSetter = () => {
             min="0"
             step="0.001"
             defaultValue={rootFontSize}
-            onChange={(e) => setRootFontSize(Number(e.target.value))}
+            onChange={handleRootFontSizeChange}
           />
           <InvertableImage
             src="pencil.png"

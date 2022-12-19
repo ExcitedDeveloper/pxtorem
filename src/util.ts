@@ -20,3 +20,18 @@ export enum WhichSide {
   Left,
   Right,
 }
+
+export const ROOT_FONT_SIZE = 'root-font-size'
+export const DFLT_ROOT_FONT_SIZE = 16
+
+export const getRootFontSizeFromLocalStorage = () => {
+  let initRootFontSize = DFLT_ROOT_FONT_SIZE
+
+  const storageRootFontSize = localStorage.getItem(ROOT_FONT_SIZE)
+
+  if (storageRootFontSize) {
+    initRootFontSize = Number(storageRootFontSize)
+  }
+
+  return initRootFontSize
+}

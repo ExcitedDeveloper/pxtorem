@@ -62,14 +62,24 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
         inputRef.current?.classList.add('conv-converted-number')
       }
 
-      if (
-        (ctrl === WhichSide.Left &&
-          direction === ConversionDirection.PxToRem) ||
-        (ctrl === WhichSide.Right && direction === ConversionDirection.RemToPx)
-      ) {
-        setPixels(toPixels(e.target.value))
-      } else {
+      if (ctrl === WhichSide.Left) {
+        if (direction === ConversionDirection.PxToRem) {
+          // Left and PxToRem, entered value is in px.
+          // Set pixels to entered value
+          setPixels(Number(e.target.value))
+        } else {
+          // Left and RemToPx, entered value is in rem.
+          // Convert to px and update pixels
+          setPixels(remToPixels(Number(e.target.value)))
+        }
+      } else if (direction === ConversionDirection.PxToRem) {
+        // Right and PxToRem, entered value is in rem.
+        // Convert to px and update pixels
         setPixels(remToPixels(Number(e.target.value)))
+      } else {
+        // Right and RemToPx, entered value is in px.
+        // Set pixels to entered value
+        setPixels(Number(e.target.value))
       }
     } catch (error) {
       // eslint-disable-next-line no-console

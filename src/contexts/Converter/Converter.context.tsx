@@ -17,10 +17,18 @@ interface ConverterContextProps {
 const DFLT_PIXELS = 16
 const DFLT_ROOT_FONT_SIZE = 16
 
+let initRootFontSize = DFLT_ROOT_FONT_SIZE
+
+const storageRootFontSize = localStorage.getItem('root-font-size')
+
+if (storageRootFontSize) {
+  initRootFontSize = Number(storageRootFontSize)
+}
+
 export const ConverterContext = React.createContext<ConverterContextProps>({
   direction: ConversionDirection.PxToRem,
   pixels: DFLT_PIXELS,
-  rootFontSize: DFLT_ROOT_FONT_SIZE,
+  rootFontSize: initRootFontSize,
 } as ConverterContextProps)
 
 export interface ConverterProviderProps {
@@ -34,7 +42,7 @@ export const ConverterProvider: React.FC<ConverterProviderProps> = ({
     ConversionDirection.PxToRem
   )
   const [pixels, setPixels] = useState<number | undefined>(DFLT_PIXELS)
-  const [rootFontSize, setRootFontSize] = useState<number>(DFLT_ROOT_FONT_SIZE)
+  const [rootFontSize, setRootFontSize] = useState<number>(initRootFontSize)
 
   const value = useMemo(
     () => ({
