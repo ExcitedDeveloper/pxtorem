@@ -6,7 +6,6 @@ import {
 } from '../../contexts/Converter/Converter.context'
 import { WhichSide } from '../../util'
 import InvertableImage from '../InvertableImage/InvertableImage'
-import '../../App.css'
 import './ClipboardImage.css'
 
 export type ClipboardImageProps = {

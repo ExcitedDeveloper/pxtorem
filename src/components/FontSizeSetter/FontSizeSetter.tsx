@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import InvertableImage from '../InvertableImage/InvertableImage'
-import '../../App.css'
 import './FontSizeSetter.css'
 
 const FontSizeSetter = () => {
@@ -28,7 +27,7 @@ const FontSizeSetter = () => {
           />
           <InvertableImage
             src="pencil.png"
-            className="inline-block"
+            className="fs-inline-block"
             alt="Copy to clipboard"
           />
         </span>{' '}
