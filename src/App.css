@@ -9,6 +9,14 @@
   justify-content: center;
   align-items: center;
   font-size: 1.8rem;
-  font-family: "Lucida Grande", Verdana, Helvetica, sans-serif;
+  font-family: 'Lucida Grande', Verdana, Helvetica, sans-serif;
   min-width: 23.81rem;
+}
+
+.invert-0 {
+  filter: invert(0%);
+}
+
+.invert-100 {
+  filter: invert(100%);
 }

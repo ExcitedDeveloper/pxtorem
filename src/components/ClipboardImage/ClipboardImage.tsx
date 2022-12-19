@@ -7,6 +7,7 @@ import {
 import { WhichSide } from '../../util'
 import { useTheme } from '../../contexts/Theme/Theme.context'
 import { ThemeType } from '../../contexts/Theme/Theme.model'
+import '../../App.css'
 import './ClipboardImage.css'
 
 export type ClipboardImageProps = {
@@ -25,11 +26,11 @@ const ClipboardImage = ({ side, inputRef }: ClipboardImageProps) => {
   // icon look correct for the current theme.
   useEffect(() => {
     if (themeType === ThemeType.Light) {
-      imgRef.current?.classList.remove('ci-invert-100')
-      imgRef.current?.classList.add('ci-invert-0')
+      imgRef.current?.classList.remove('invert-100')
+      imgRef.current?.classList.add('invert-0')
     } else {
-      imgRef.current?.classList.remove('ci-invert-0')
-      imgRef.current?.classList.add('ci-invert-100')
+      imgRef.current?.classList.remove('invert-0')
+      imgRef.current?.classList.add('invert-100')
     }
   }, [themeType])
 

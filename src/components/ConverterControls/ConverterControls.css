@@ -34,6 +34,10 @@
   position: relative;
 }
 
+.cc-toggle-button {
+  flex: 1;
+}
+
 @media screen and (max-width: 895px) {
   .converter-controls {
     flex-direction: column;

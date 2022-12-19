@@ -49,7 +49,11 @@ const ConverterControls = () => {
         </div>
       </label>
       <div className="cc-toggle">
-        <button type="button" onClick={toggleDirection}>
+        <button
+          className="cc-toggle-button"
+          type="button"
+          onClick={toggleDirection}
+        >
           ⇄
         </button>
       </div>

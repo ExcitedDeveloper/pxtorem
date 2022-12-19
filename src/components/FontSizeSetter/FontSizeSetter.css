@@ -1,3 +1,37 @@
-.font-size-setter {
+.fs-setter {
   height: 3.125rem;
+  font-size: 0.87rem;
+  margin-top: 2rem;
+}
+
+.fs-input {
+  padding: 0;
+  width: 1.5rem;
+}
+
+.fs-input:not(:focus) {
+  color: inherit;
+  background-color: transparent;
+  border-color: transparent;
+  -webkit-appearance: none;
+}
+
+.fs-input:focus + .fs-pencil {
+  display: none;
+}
+
+.fs-inline-setting:not(:focus-within)::after {
+  display: inline-block;
+  width: 1rem;
+  height: 0.75rem;
+  margin-left: -1rem;
+  content: '';
+  /* background-image: url('pencil.png'); */
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.fs-pencil {
+  display: inline-block;
 }
