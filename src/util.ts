@@ -36,15 +36,33 @@ export const getRootFontSizeFromLocalStorage = () => {
   return initRootFontSize
 }
 
-export const formatNumber = (num: number | undefined) => {
-  return num ? num.toFixed(3).replace(/\.?0+$/, '') : ''
+export const DFLT_DECIMALS = 3
+
+const removeTrailingZeros = /\.?0+$/
+
+export const formatNumber = (
+  num: number | undefined,
+  decimals = DFLT_DECIMALS
+) => {
+  return num ? num.toFixed(decimals).replace(removeTrailingZeros, '') : ''
 }
 
-export const pxToRem = (rootFontSize: number, pixels?: number): string => {
+export const pxToRem = (
+  rootFontSize: number,
+  pixels?: number,
+  decimals = DFLT_DECIMALS
+): string => {
   if (!pixels) return ''
-  return pixels ? formatNumber(pixels / rootFontSize) : ''
+  return pixels ? formatNumber(pixels / rootFontSize, decimals) : ''
 }
 
-export const remToPx = (rootFontSize: number, rem: number): string => {
-  return (rem * rootFontSize).toString()
+export const remToPx = (
+  rootFontSize: number,
+  rem: number,
+  decimals = DFLT_DECIMALS
+): string => {
+  return (rem * rootFontSize)
+    .toFixed(decimals)
+    .replace(removeTrailingZeros, '')
+    .toString()
 }

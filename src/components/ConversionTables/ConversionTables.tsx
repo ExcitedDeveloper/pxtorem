@@ -42,13 +42,13 @@ const ConversionTables = () => {
     initialPxToRemData.forEach((row) => {
       const newRow = pxToRemTbodyElem.insertRow()
       insertNewCell(row.px.toString(), 'px', newRow)
-      insertNewCell(pxToRem(rootFontSize, row.px), 'rem', newRow)
+      insertNewCell(pxToRem(rootFontSize, row.px, 2), 'rem', newRow)
     })
 
     initialRemToPxData.forEach((row) => {
       const newRow = remToPxTbodyElem.insertRow()
       insertNewCell(row.rem.toString(), 'rem', newRow)
-      insertNewCell(remToPx(rootFontSize, row.rem), 'px', newRow)
+      insertNewCell(remToPx(rootFontSize, row.rem, 2), 'px', newRow)
     })
   }, [rootFontSize])
 
