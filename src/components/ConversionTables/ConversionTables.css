@@ -1,3 +1,44 @@
-.conversion-tables {
+.ct-container {
   flex: 2;
+  max-width: 36rem;
+}
+
+.ct-table {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  font-size: 0.9rem;
+}
+
+.ct-table th {
+  border-bottom: 1px solid silver;
+  text-align: center;
+  padding: 0.2rem 0.4rem;
+}
+
+.ct-table tbody tr:nth-child(odd) {
+  background-color: #f4f4f4;
+}
+
+.ct-table td {
+  padding: 0.2rem 0.4rem;
+  text-align: right;
+}
+
+.ct-table abbr {
+  color: silver;
+}
+
+table {
+  display: table;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 0.125rem;
+  border-color: grey;
+}
+
+.ct-table table {
+  border-collapse: collapse;
+  margin: 0.6rem auto;
+  justify-content: space-around;
 }

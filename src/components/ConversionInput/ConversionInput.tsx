@@ -1,5 +1,5 @@
 import { ChangeEvent, RefObject, useState, useEffect } from 'react'
-import { WhichSide } from '../../util'
+import { WhichSide, formatNumber, pxToRem, remToPx } from '../../util'
 import {
   ConversionDirection,
   useConverter,
@@ -11,36 +11,20 @@ export type ConversionInputProps = {
   side: WhichSide
 }
 
-const formatNumber = (num: number | undefined) => {
-  return num ? num.toFixed(3).replace(/\.?0+$/, '') : ''
-}
-
 const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
   const [controlText, setControlText] = useState<string>('')
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
-  const toPixels = (val: string) => {
-    return Number(val) * rootFontSize
-  }
-
   useEffect(() => {
-    const pixelsToRem = (): string => {
-      return pixels ? formatNumber(pixels / rootFontSize) : ''
-    }
-
     if (
       (side === WhichSide.Left && direction === ConversionDirection.PxToRem) ||
       (side === WhichSide.Right && direction === ConversionDirection.RemToPx)
     ) {
       setControlText(formatNumber(pixels))
     } else {
-      setControlText(pixelsToRem())
+      setControlText(pxToRem(rootFontSize, pixels))
     }
   }, [pixels, direction, side, rootFontSize])
-
-  const remToPixels = (rem: number): number => {
-    return rem * rootFontSize
-  }
 
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -70,12 +54,12 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
         } else {
           // Left and RemToPx, entered value is in rem.
           // Convert to px and update pixels
-          setPixels(remToPixels(Number(e.target.value)))
+          setPixels(Number(remToPx(rootFontSize, Number(e.target.value))))
         }
       } else if (direction === ConversionDirection.PxToRem) {
         // Right and PxToRem, entered value is in rem.
         // Convert to px and update pixels
-        setPixels(remToPixels(Number(e.target.value)))
+        setPixels(Number(remToPx(rootFontSize, Number(e.target.value))))
       } else {
         // Right and RemToPx, entered value is in px.
         // Set pixels to entered value

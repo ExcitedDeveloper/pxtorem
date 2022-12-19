@@ -35,3 +35,16 @@ export const getRootFontSizeFromLocalStorage = () => {
 
   return initRootFontSize
 }
+
+export const formatNumber = (num: number | undefined) => {
+  return num ? num.toFixed(3).replace(/\.?0+$/, '') : ''
+}
+
+export const pxToRem = (rootFontSize: number, pixels?: number): string => {
+  if (!pixels) return ''
+  return pixels ? formatNumber(pixels / rootFontSize) : ''
+}
+
+export const remToPx = (rootFontSize: number, rem: number): string => {
+  return (rem * rootFontSize).toString()
+}
