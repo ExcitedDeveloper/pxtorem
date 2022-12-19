@@ -19,6 +19,10 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
   const [controlText, setControlText] = useState<string>('')
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
+  const toPixels = (val: string) => {
+    return Number(val) * rootFontSize
+  }
+
   useEffect(() => {
     const pixelsToRem = (): string => {
       return pixels ? formatNumber(pixels / rootFontSize) : ''
@@ -63,7 +67,7 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
           direction === ConversionDirection.PxToRem) ||
         (ctrl === WhichSide.Right && direction === ConversionDirection.RemToPx)
       ) {
-        setPixels(Number(e.target.value))
+        setPixels(toPixels(e.target.value))
       } else {
         setPixels(remToPixels(Number(e.target.value)))
       }

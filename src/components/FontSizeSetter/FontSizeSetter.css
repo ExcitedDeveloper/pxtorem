@@ -16,7 +16,7 @@
   -webkit-appearance: none;
 }
 
-.fs-input:focus + .fs-pencil {
+.fs-input:focus + .ii-image {
   display: none;
 }
 
