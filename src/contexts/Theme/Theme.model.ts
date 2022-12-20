@@ -19,4 +19,6 @@ export interface Theme {
   '--numeric-border': Color
   '--caret-color': Color
   '--converted-number': Color
+  '--black': Color
+  '--silver': Color
 }

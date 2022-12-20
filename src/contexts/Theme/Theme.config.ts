@@ -16,6 +16,8 @@ export const THEMES: Record<ThemeType, Theme> = {
     '--numeric-border': Color.GAINSBORO,
     '--caret-color': Color.BLACK,
     '--converted-number': Color.BLUE,
+    '--black': Color.BLACK,
+    '--silver': Color.SILVER,
   },
   dark: {
     '--primary': Color.BLACK,
@@ -31,6 +33,8 @@ export const THEMES: Record<ThemeType, Theme> = {
     '--numeric-border': Color.GAINSBORO,
     '--caret-color': Color.WHITE,
     '--converted-number': Color.BLUE,
+    '--black': Color.BLACK,
+    '--silver': Color.SILVER,
   },
 }
 

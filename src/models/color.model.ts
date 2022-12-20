@@ -7,6 +7,7 @@ export enum Color {
   WHITE = '#FFF',
   GAINSBORO = '#DCDCDC',
   BLUE = '#1A79FF',
+  SILVER = '#AAAAAA',
 }
 
 export default Color
