@@ -9,9 +9,14 @@ import './ConversionInput.css'
 export type ConversionInputProps = {
   inputRef: RefObject<HTMLInputElement>
   side: WhichSide
+  otherRef: RefObject<HTMLInputElement>
 }
 
-const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
+const ConversionInput = ({
+  inputRef,
+  side,
+  otherRef,
+}: ConversionInputProps) => {
   const [controlText, setControlText] = useState<string>('')
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
@@ -37,14 +42,12 @@ const ConversionInput = ({ inputRef, side }: ConversionInputProps) => {
         return
       }
 
-      // For the number that is getting converted,
-      // set the text color
-      // First remove the text color from the other number
-      if (ctrl === WhichSide.Left) {
-        inputRef.current?.classList.remove('conv-converted-number')
-      } else {
-        inputRef.current?.classList.add('conv-converted-number')
-      }
+      // Unhighlight the current input
+      inputRef.current?.classList.remove('conv-converted-number')
+
+      // Highlight the other input to show its'
+      // value has been converted
+      otherRef.current?.classList.add('conv-converted-number')
 
       if (ctrl === WhichSide.Left) {
         if (direction === ConversionDirection.PxToRem) {

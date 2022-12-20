@@ -43,7 +43,11 @@ const ConverterControls = () => {
         {leftLabel}
         <div id="leftConverterControl" className="cc-numeric">
           <div className="cc-input-group">
-            <ConversionInput inputRef={leftRef} side={WhichSide.Left} />
+            <ConversionInput
+              inputRef={leftRef}
+              side={WhichSide.Left}
+              otherRef={rightRef}
+            />
             <ClipboardImage side={WhichSide.Left} inputRef={leftRef} />
           </div>
         </div>
@@ -61,7 +65,11 @@ const ConverterControls = () => {
         {rightLabel}
         <div id="rightConverterControl" className="cc-numeric">
           <div className="cc-input-group">
-            <ConversionInput inputRef={rightRef} side={WhichSide.Right} />
+            <ConversionInput
+              inputRef={rightRef}
+              side={WhichSide.Right}
+              otherRef={leftRef}
+            />
             <ClipboardImage side={WhichSide.Right} inputRef={rightRef} />
           </div>
         </div>
