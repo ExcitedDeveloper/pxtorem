@@ -1,4 +1,10 @@
-import { ChangeEvent, RefObject, useState, useEffect } from 'react'
+import {
+  ChangeEvent,
+  RefObject,
+  useState,
+  useEffect,
+  KeyboardEvent,
+} from 'react'
 import { WhichSide, formatNumber, pxToRem, remToPx } from '../../util'
 import {
   ConversionDirection,
@@ -21,6 +27,11 @@ const ConversionInput = ({
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
   useEffect(() => {
+    if (!pixels) {
+      setControlText('')
+      return
+    }
+
     if (
       (side === WhichSide.Left && direction === ConversionDirection.PxToRem) ||
       (side === WhichSide.Right && direction === ConversionDirection.RemToPx)
@@ -74,12 +85,31 @@ const ConversionInput = ({
     }
   }
 
+  // Was getting bug where selecting text and then
+  // clicking the delete key, was not working correctly
+  // in handleOnChange.
+  //
+  // Apparently browser was not having enough time
+  // to update e.target.value.  Added setTimeout
+  // to so that e.target.value has time to update.
+  //
+  // Found solution in the accepted answer at
+  // https://stackoverflow.com/questions/1338483/detecting-value-of-input-text-field-after-a-keydown-event-in-the-text-field
+  const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    window.setTimeout(() => {
+      if (!(e.target as HTMLInputElement).value) {
+        setPixels(undefined)
+      }
+    })
+  }
+
   return (
     <input
       type="number"
       ref={inputRef}
       className="conv-input"
       defaultValue={controlText}
+      onKeyDown={(e) => handleOnKeyDown(e)}
       onChange={(e) => handleOnChange(e, side)}
     />
   )
