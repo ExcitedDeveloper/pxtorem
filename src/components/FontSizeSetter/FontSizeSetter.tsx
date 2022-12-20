@@ -9,7 +9,14 @@ const FontSizeSetter = () => {
   const { rootFontSize, setRootFontSize } = useConverter()
 
   const handleRootFontSizeChange = (e: FormEvent<HTMLInputElement>) => {
-    setRootFontSize(Number(e.currentTarget.value))
+    const fontSize = e.currentTarget.value || '16'
+
+    if (inputRef.current) {
+      inputRef.current.value = fontSize
+    }
+
+    setRootFontSize(Number(fontSize))
+
     localStorage.setItem(ROOT_FONT_SIZE, e.currentTarget.value)
   }
 
