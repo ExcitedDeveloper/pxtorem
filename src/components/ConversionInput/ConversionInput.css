@@ -17,7 +17,7 @@
 }
 
 .conv-converted-number {
-  color: var(--converted-number);
+  color: var(--blue);
 }
 
 /* Hide the HTML5 spin-button for inputs */
@@ -28,6 +28,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Hide the HTML5 spin-button for inputs */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }

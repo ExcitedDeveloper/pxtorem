@@ -6,6 +6,7 @@ import ConverterTitle from './components/ConverterTitle/ConverterTitle'
 import ConverterControls from './components/ConverterControls/ConverterControls'
 import FontSizeSetter from './components/FontSizeSetter/FontSizeSetter'
 import ConversionTables from './components/ConversionTables/ConversionTables'
+import GitHubIcon from './components/GitHubIcon/GitHubIcon'
 
 function App() {
   const { theme, setCurrentTheme, themeType } = useTheme()
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <main className="app" style={{ ...(theme as React.CSSProperties) }}>
+      <GitHubIcon />
       <ThemeSlider onClick={handleThemeClick} />
       <ConverterTitle />
       <ConverterControls />
