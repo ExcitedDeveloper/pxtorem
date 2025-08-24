@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import { vi, beforeEach } from 'vitest'
 
 // Mock localStorage for tests
 const localStorageMock = {
@@ -8,7 +9,11 @@ const localStorageMock = {
   clear: vi.fn(),
 }
 
-global.localStorage = localStorageMock as any
+// Set up global localStorage mock
+Object.defineProperty(globalThis, 'localStorage', {
+  value: localStorageMock,
+  writable: true,
+})
 
 // Reset mocks before each test
 beforeEach(() => {

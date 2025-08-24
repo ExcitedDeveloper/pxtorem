@@ -22,5 +22,6 @@
     "jsx": "react-jsx"
   },
   "include": [".eslintrc.cjs", "src", "vitest.config.ts"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
