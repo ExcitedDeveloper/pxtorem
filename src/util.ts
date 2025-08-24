@@ -44,7 +44,9 @@ export const formatNumber = (
   num: number | undefined,
   decimals = DFLT_DECIMALS
 ) => {
-  return num ? num.toFixed(decimals).replace(removeTrailingZeros, '') : ''
+  return num !== undefined && num !== null
+    ? num.toFixed(decimals).replace(removeTrailingZeros, '')
+    : ''
 }
 
 export const pxToRem = (

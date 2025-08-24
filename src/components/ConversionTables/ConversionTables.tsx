@@ -1,82 +1,94 @@
-import { useEffect } from 'react'
+import { useMemo, memo } from 'react'
 import { useConverter } from '../../contexts/Converter/Converter.context'
 import { pxToRem, remToPx } from '../../util'
 import './ConversionTables.css'
 import initialPxToRemData from './pxtorem.json'
 import initialRemToPxData from './remtopx.json'
 
-const ConversionTables = () => {
+interface PxToRemRow {
+  readonly px: number
+  readonly rem: string
+}
+
+interface RemToPxRow {
+  readonly rem: number
+  readonly px: string
+}
+
+const ConversionTables = memo(() => {
   const { rootFontSize } = useConverter()
 
-  const insertNewCell = (
-    text: string,
-    abbr: string,
-    newRow?: HTMLTableRowElement
-  ) => {
-    if (!newRow) return
+  const pxToRemRows: PxToRemRow[] = useMemo(
+    () =>
+      initialPxToRemData.map((row) => ({
+        px: row.px,
+        rem: pxToRem(rootFontSize, row.px, 2),
+      })),
+    [rootFontSize]
+  )
 
-    const newCell = newRow.insertCell()
-
-    if (!newCell) {
-      // eslint-disable-next-line no-console
-      console.error(`ConversionTables: Error creating new cell`)
-      return
-    }
-
-    newCell.innerHTML = `${text}<abbr>${abbr}</abbr>`
-  }
-
-  useEffect(() => {
-    const pxToRemTbodyElem = document.getElementById(
-      'pxToRemTbody'
-    ) as HTMLTableElement
-    const remToPxTbodyElem = document.getElementById(
-      'remToPxTbody'
-    ) as HTMLTableElement
-
-    if (!pxToRemTbodyElem || !remToPxTbodyElem) return
-
-    pxToRemTbodyElem.innerHTML = ''
-    remToPxTbodyElem.innerHTML = ''
-
-    initialPxToRemData.forEach((row) => {
-      const newRow = pxToRemTbodyElem.insertRow()
-      insertNewCell(row.px.toString(), 'px', newRow)
-      insertNewCell(pxToRem(rootFontSize, row.px, 2), 'rem', newRow)
-    })
-
-    initialRemToPxData.forEach((row) => {
-      const newRow = remToPxTbodyElem.insertRow()
-      insertNewCell(row.rem.toString(), 'rem', newRow)
-      insertNewCell(remToPx(rootFontSize, row.rem, 2), 'px', newRow)
-    })
-  }, [rootFontSize])
+  const remToPxRows: RemToPxRow[] = useMemo(
+    () =>
+      initialRemToPxData.map((row) => ({
+        rem: row.rem,
+        px: remToPx(rootFontSize, row.rem, 2),
+      })),
+    [rootFontSize]
+  )
 
   return (
     <div className="ct-container">
-      <div>PX&thinsp;↔︎&thinsp;REM conversion tables</div>
+      <h2>PX&thinsp;↔︎&thinsp;REM conversion tables</h2>
       <div className="ct-table">
-        <table>
+        <table aria-label="Pixels to REM conversion table">
           <thead>
             <tr>
-              <th>Pixels</th>
-              <th>REM</th>
+              <th scope="col">Pixels</th>
+              <th scope="col">REM</th>
             </tr>
           </thead>
-          <tbody id="pxToRemTbody" />
+          <tbody>
+            {pxToRemRows.map((row) => (
+              <tr key={row.px}>
+                <td>
+                  {row.px}
+                  <abbr>px</abbr>
+                </td>
+                <td>
+                  {row.rem}
+                  <abbr>rem</abbr>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-        <table>
+        <table aria-label="REM to pixels conversion table">
           <thead>
             <tr>
-              <th>REM</th>
-              <th>Pixels</th>
+              <th scope="col">REM</th>
+              <th scope="col">Pixels</th>
             </tr>
           </thead>
-          <tbody id="remToPxTbody" />
+          <tbody>
+            {remToPxRows.map((row) => (
+              <tr key={row.rem}>
+                <td>
+                  {row.rem}
+                  <abbr>rem</abbr>
+                </td>
+                <td>
+                  {row.px}
+                  <abbr>px</abbr>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
   )
-}
+})
+
+ConversionTables.displayName = 'ConversionTables'
 
 export default ConversionTables

@@ -22,9 +22,7 @@ const ConverterTitle = () => {
 
   return (
     <div className="converter-title">
-      <div>
-        <div>{title}</div>
-      </div>
+      <h1>{title}</h1>
     </div>
   )
 }

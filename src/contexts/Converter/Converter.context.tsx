@@ -1,4 +1,6 @@
 import React, { useState, Dispatch, SetStateAction, useMemo } from 'react'
+import useLocalStorage from '../../hooks/useLocalStorage'
+import { ROOT_FONT_SIZE } from '../../util'
 
 export enum ConversionDirection {
   PxToRem,
@@ -6,33 +8,25 @@ export enum ConversionDirection {
 }
 
 interface ConverterContextProps {
-  direction: ConversionDirection
-  setDirection: Dispatch<SetStateAction<ConversionDirection>>
-  pixels: number | undefined
-  setPixels: Dispatch<SetStateAction<number | undefined>>
-  rootFontSize: number
-  setRootFontSize: Dispatch<SetStateAction<number>>
+  readonly direction: ConversionDirection
+  readonly setDirection: Dispatch<SetStateAction<ConversionDirection>>
+  readonly pixels: number | undefined
+  readonly setPixels: Dispatch<SetStateAction<number | undefined>>
+  readonly rootFontSize: number
+  readonly setRootFontSize: (value: number | ((val: number) => number)) => void
 }
 
 const DFLT_PIXELS = 16
 const DFLT_ROOT_FONT_SIZE = 16
 
-let initRootFontSize = DFLT_ROOT_FONT_SIZE
-
-const storageRootFontSize = localStorage.getItem('root-font-size')
-
-if (storageRootFontSize) {
-  initRootFontSize = Number(storageRootFontSize)
-}
-
 export const ConverterContext = React.createContext<ConverterContextProps>({
   direction: ConversionDirection.PxToRem,
   pixels: DFLT_PIXELS,
-  rootFontSize: initRootFontSize,
+  rootFontSize: DFLT_ROOT_FONT_SIZE,
 } as ConverterContextProps)
 
 export interface ConverterProviderProps {
-  children?: React.ReactNode
+  readonly children?: React.ReactNode
 }
 
 export const ConverterProvider: React.FC<ConverterProviderProps> = ({
@@ -42,7 +36,10 @@ export const ConverterProvider: React.FC<ConverterProviderProps> = ({
     ConversionDirection.PxToRem
   )
   const [pixels, setPixels] = useState<number | undefined>(DFLT_PIXELS)
-  const [rootFontSize, setRootFontSize] = useState<number>(initRootFontSize)
+  const [rootFontSize, setRootFontSize] = useLocalStorage<number>(
+    ROOT_FONT_SIZE,
+    DFLT_ROOT_FONT_SIZE
+  )
 
   const value = useMemo(
     () => ({
@@ -53,7 +50,7 @@ export const ConverterProvider: React.FC<ConverterProviderProps> = ({
       rootFontSize,
       setRootFontSize,
     }),
-    [direction, pixels, rootFontSize]
+    [direction, pixels, rootFontSize, setRootFontSize]
   )
 
   return (

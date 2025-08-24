@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import './App.css'
 import { useTheme } from './contexts/Theme/Theme.context'
 import { ThemeType } from './contexts/Theme/Theme.model'
@@ -11,11 +12,11 @@ import GitHubIcon from './components/GitHubIcon/GitHubIcon'
 function App() {
   const { theme, setCurrentTheme, themeType } = useTheme()
 
-  const handleThemeClick = () => {
+  const handleThemeClick = useCallback(() => {
     setCurrentTheme(
       themeType === ThemeType.Dark ? ThemeType.Light : ThemeType.Dark
     )
-  }
+  }, [themeType, setCurrentTheme])
 
   return (
     <main className="app" style={{ ...(theme as React.CSSProperties) }}>

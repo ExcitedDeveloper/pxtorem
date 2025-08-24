@@ -1,42 +1,43 @@
-import { FormEvent, useRef, useEffect } from 'react'
+import { FormEvent, useRef, useCallback } from 'react'
 import InvertableImage from '../InvertableImage/InvertableImage'
 import { useConverter } from '../../contexts/Converter/Converter.context'
-import { getRootFontSizeFromLocalStorage, ROOT_FONT_SIZE } from '../../util'
 import './FontSizeSetter.css'
 
 const FontSizeSetter = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const { rootFontSize, setRootFontSize } = useConverter()
 
-  const handleRootFontSizeChange = (e: FormEvent<HTMLInputElement>) => {
-    const fontSize = e.currentTarget.value || '16'
+  const handleRootFontSizeChange = useCallback(
+    (e: FormEvent<HTMLInputElement>) => {
+      const fontSize = e.currentTarget.value || '16'
 
-    if (inputRef.current) {
-      inputRef.current.value = fontSize
-    }
+      if (inputRef.current) {
+        inputRef.current.value = fontSize
+      }
 
-    setRootFontSize(Number(fontSize))
+      setRootFontSize(Number(fontSize))
+    },
+    [setRootFontSize]
+  )
 
-    localStorage.setItem(ROOT_FONT_SIZE, e.currentTarget.value)
-  }
+  const handleFocus = useCallback(() => {
+    inputRef.current?.focus()
+  }, [])
 
-  useEffect(() => {
-    const storageRootFontSize = getRootFontSizeFromLocalStorage()
-    setRootFontSize(Number(storageRootFontSize))
-  }, [setRootFontSize])
+  const handleKeyDown = useCallback(() => {
+    inputRef.current?.focus()
+  }, [])
 
   return (
     <div className="fs-setter">
       <label htmlFor="rootFontSize">
         Calculation base on a root font-size of{' '}
         <span
-          role="textbox"
-          tabIndex={-1}
+          role="button"
+          tabIndex={0}
           className="fs-inline-setting"
-          onKeyDown={() => inputRef.current?.focus()}
-          onClick={() => {
-            inputRef.current?.focus()
-          }}
+          onKeyDown={handleKeyDown}
+          onClick={handleFocus}
         >
           <input
             ref={inputRef}
@@ -51,7 +52,7 @@ const FontSizeSetter = () => {
           <InvertableImage
             src="pencil.png"
             className="fs-inline-block"
-            alt="Copy to clipboard"
+            alt="Edit font size"
           />
         </span>{' '}
         pixel.

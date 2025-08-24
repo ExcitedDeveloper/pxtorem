@@ -1,7 +1,7 @@
+import { memo } from 'react'
 import './GitHubIcon.css'
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function GitHubIcon() {
+const GitHubIcon = memo(() => {
   return (
     <a
       href="https://github.com/ExcitedDeveloper/pxtorem"
@@ -26,4 +26,8 @@ export default function GitHubIcon() {
       </svg>
     </a>
   )
-}
+})
+
+GitHubIcon.displayName = 'GitHubIcon'
+
+export default GitHubIcon
