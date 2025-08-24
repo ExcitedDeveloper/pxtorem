@@ -20,7 +20,7 @@ describe('formatNumber', () => {
 
   it('should remove trailing zeros', () => {
     expect(formatNumber(16.0, 3)).toBe('16')
-    expect(formatNumber(16.10, 3)).toBe('16.1')
+    expect(formatNumber(16.1, 3)).toBe('16.1')
   })
 
   it('should handle undefined input', () => {

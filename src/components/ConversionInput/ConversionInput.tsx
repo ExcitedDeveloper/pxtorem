@@ -28,6 +28,11 @@ const ConversionInput = ({
   const { setPixels, rootFontSize, pixels, direction } = useConverter()
 
   useEffect(() => {
+    // Don't update if this input currently has focus (user is typing)
+    if (document.activeElement === inputRef.current) {
+      return
+    }
+
     if (!pixels) {
       setControlText('')
       return
@@ -46,8 +51,12 @@ const ConversionInput = ({
   const handleOnChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>, ctrl: WhichSide) => {
       try {
-        if (!e.target.value) {
-          setControlText('')
+        const inputValue = e.target.value
+
+        // Update the control text immediately for responsive UI
+        setControlText(inputValue)
+
+        if (!inputValue) {
           setPixels(undefined)
           return
         }
@@ -63,20 +72,20 @@ const ConversionInput = ({
           if (direction === ConversionDirection.PxToRem) {
             // Left and PxToRem, entered value is in px.
             // Set pixels to entered value
-            setPixels(Number(e.target.value))
+            setPixels(Number(inputValue))
           } else {
             // Left and RemToPx, entered value is in rem.
             // Convert to px and update pixels
-            setPixels(Number(remToPx(rootFontSize, Number(e.target.value))))
+            setPixels(Number(remToPx(rootFontSize, Number(inputValue))))
           }
         } else if (direction === ConversionDirection.PxToRem) {
           // Right and PxToRem, entered value is in rem.
           // Convert to px and update pixels
-          setPixels(Number(remToPx(rootFontSize, Number(e.target.value))))
+          setPixels(Number(remToPx(rootFontSize, Number(inputValue))))
         } else {
           // Right and RemToPx, entered value is in px.
           // Set pixels to entered value
-          setPixels(Number(e.target.value))
+          setPixels(Number(inputValue))
         }
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -99,7 +108,9 @@ const ConversionInput = ({
   const handleOnKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       window.setTimeout(() => {
-        if (!(e.target as HTMLInputElement).value) {
+        const target = e.target as HTMLInputElement
+        if (!target.value) {
+          setControlText('')
           setPixels(undefined)
         }
       })
@@ -112,7 +123,7 @@ const ConversionInput = ({
       type="number"
       ref={inputRef}
       className="conv-input"
-      defaultValue={controlText}
+      value={controlText}
       onKeyDown={(e) => handleOnKeyDown(e)}
       onChange={(e) => handleOnChange(e, side)}
     />
